@@ -27,13 +27,13 @@ CREATE TABLE tokens (
 );
 
 CREATE TABLE employeeAccount (
-    id SERIAL PRIMARY KEY NOT NULL,
+	id SERIAL PRIMARY KEY NOT NULL,
 	userId INT NOT NULL,
 	companyId INT NOT NULL,
-    firstName VARCHAR(256) NOT NULL,
+	firstName VARCHAR(256) NOT NULL,
 	secondName VARCHAR(256) NOT NULL,
-    surname VARCHAR(256) NOT NULL,
-    telephoneNumber VARCHAR(256) NOT NULL,
+	surname VARCHAR(256) NOT NULL,
+	telephoneNumber VARCHAR(256) NOT NULL,
 	avatarUrl VARCHAR(256) NOT NULL,
 	dateOfBirth DATE NOT NULL,
 	job VARCHAR(256) NOT NULL,
@@ -56,15 +56,15 @@ CREATE TABLE department (
 CREATE TABLE employee_roles (
 	accountId INT NOT NULL,
 	roleId INT NOT NULL,
-    FOREIGN KEY(accountId) REFERENCES employeeAccount(id),
-    FOREIGN KEY(roleId) REFERENCES role(id),
+	FOREIGN KEY(accountId) REFERENCES employeeAccount(id),
+	FOREIGN KEY(roleId) REFERENCES role(id),
 	PRIMARY KEY(accountId, roleId)
 );
 
 CREATE TABLE employee_department (
 	accountId INT NOT NULL,
 	departmentId INT NOT NULL,
-    FOREIGN KEY(accountId) REFERENCES employeeAccount(id),
+	FOREIGN KEY(accountId) REFERENCES employeeAccount(id),
 	FOREIGN KEY(departmentId) REFERENCES department(id),
 	PRIMARY KEY (accountId, departmentId)
 );
