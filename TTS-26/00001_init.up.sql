@@ -24,6 +24,7 @@ CREATE TABLE tokens (
 	userId INT NOT NULL,
 	token VARCHAR(256) NOT NULL,
 	FOREIGN KEY(userId) REFERENCES auth_user(id)
+		ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE employeeAccount (
@@ -38,8 +39,10 @@ CREATE TABLE employeeAccount (
 	dateOfBirth DATE NOT NULL,
 	job VARCHAR(256) NOT NULL,
 	UNIQUE (userId, companyId),
-	FOREIGN KEY(userId) REFERENCES auth_user(id),
+	FOREIGN KEY(userId) REFERENCES auth_user(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(companyId) REFERENCES company(id)
+		ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE department (
@@ -48,23 +51,30 @@ CREATE TABLE department (
 	parentDepartmentId INT,
 	companyId INT NOT NULL,
 	supervisorId INT NOT NULL,
-	FOREIGN KEY(parentDepartmentId) REFERENCES department(id),
-	FOREIGN KEY(companyId) REFERENCES company(id),
+	FOREIGN KEY(parentDepartmentId) REFERENCES department(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(companyId) REFERENCES company(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY(supervisorId) REFERENCES employeeAccount(id)
+		ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE employee_roles (
 	accountId INT NOT NULL,
 	roleId INT NOT NULL,
-	FOREIGN KEY(accountId) REFERENCES employeeAccount(id),
-	FOREIGN KEY(roleId) REFERENCES role(id),
+	FOREIGN KEY(accountId) REFERENCES employeeAccount(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(roleId) REFERENCES role(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY(accountId, roleId)
 );
 
 CREATE TABLE employee_department (
 	accountId INT NOT NULL,
 	departmentId INT NOT NULL,
-	FOREIGN KEY(accountId) REFERENCES employeeAccount(id),
-	FOREIGN KEY(departmentId) REFERENCES department(id),
+	FOREIGN KEY(accountId) REFERENCES employeeAccount(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY(departmentId) REFERENCES department(id)
+		ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY (accountId, departmentId)
 );
